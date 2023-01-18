@@ -1,6 +1,7 @@
 "use client";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Container from "@mui/material/Container";
+import { Footer, Hero } from "./components";
 import "./globals.css";
 import { lightTheme } from "./theme/themes";
 
@@ -19,9 +20,11 @@ export default function RootLayout({
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <body>
+          <Hero />
           <main>
             <Container>{children}</Container>
           </main>
+          <Footer />
         </body>
       </ThemeProvider>
     </html>

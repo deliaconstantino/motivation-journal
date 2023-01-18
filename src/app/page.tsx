@@ -1,11 +1,12 @@
 "use client";
 import { Button, Grid, Stack } from "@mui/material";
+import { Entries } from "./components";
+
 export default function Home() {
   return (
-    <main>
+    <>
       <Grid
         container
-        height="100vh"
         alignItems="center"
         justifyContent="center"
         direction="column"
@@ -17,6 +18,7 @@ export default function Home() {
           <Button variant="outlined">Outlined</Button>
         </Stack>
       </Grid>
-    </main>
+      <Entries />
+    </>
   );
 }

@@ -1,7 +1,9 @@
 "use client";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import Container from "@mui/material/Container";
 import "./globals.css";
 import { lightTheme } from "./theme/themes";
+
 export default function RootLayout({
   children,
 }: {
@@ -16,7 +18,11 @@ export default function RootLayout({
       </head>
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
-        <body>{children}</body>
+        <body>
+          <main>
+            <Container>{children}</Container>
+          </main>
+        </body>
       </ThemeProvider>
     </html>
   );

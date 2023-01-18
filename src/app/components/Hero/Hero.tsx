@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
+import { Quote } from "./Quote";
 
 export const Hero = () => {
   return (
@@ -22,10 +23,7 @@ export const Hero = () => {
             disableEqualOverflow
           >
             <Grid xs={12} lg={8}>
-              <Box mx="auto" textAlign="center">
-                Life has got all those twists and turns. You have got to hold on
-                tight and off you go.
-              </Box>
+              <Quote />
             </Grid>
             <Grid xs={12} lg={4}>
               <Box

@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { Entry } from "../Entry";
+import { fetcher } from "../utils/fetcher";
 
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
@@ -9,8 +10,6 @@ import Typography from "@mui/material/Typography";
 const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export const Entries = () => {
   //TODO: add types

@@ -6,7 +6,7 @@ import { QuoteWrapper } from "./QuoteWrapper";
 
 export const Quote = () => {
   const { data, error, isLoading } = useSWR(
-    "https://api.quotable.io/random",
+    "https://api.quotable.io/random?tags=inspirational",
     fetcher
   );
 

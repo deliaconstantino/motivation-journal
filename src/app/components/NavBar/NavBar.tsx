@@ -4,7 +4,14 @@ import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-export const NavBar = () => {
+export const NavBar = ({ showLogOutButton, setIsLoggedIn }) => {
+  // TODO: add avatar with inital next to logout button
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("token");
+  };
+
   return (
     <Box
       sx={{
@@ -27,7 +34,11 @@ export const NavBar = () => {
               Motivation Journal
             </Button>
           </Typography>
-          <Button color="inherit">Login</Button>
+          {showLogOutButton && (
+            <Button onClick={handleLogout} color="inherit">
+              Logout
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

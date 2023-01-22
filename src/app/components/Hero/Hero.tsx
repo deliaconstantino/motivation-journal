@@ -2,9 +2,22 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
+import { LogIn } from "../LogIn";
+import { SignUp } from "../SignUp";
 import { Quote } from "./Quote";
 
-export const Hero = () => {
+export const Hero = ({
+  isLoggedIn,
+  showSignupForm,
+  setShowLoginForm,
+  setShowSignupForm,
+  setIsLoggedIn,
+  showLoginForm,
+}) => {
+  //TODOs:
+  // refactor form to sahred template
+  // add types
+  // fix Form CSS
   return (
     <header>
       <Box
@@ -27,7 +40,25 @@ export const Hero = () => {
             disableEqualOverflow
           >
             <Grid xs={12} lg={8}>
-              <Quote />
+              {!isLoggedIn && (
+                <>
+                  {showSignupForm && (
+                    <SignUp
+                      setShowLoginForm={setShowLoginForm}
+                      setShowSignupForm={setShowSignupForm}
+                      setIsLoggedIn={setIsLoggedIn}
+                    />
+                  )}
+                  {showLoginForm && (
+                    <LogIn
+                      setShowSignupForm={setShowSignupForm}
+                      setShowLoginForm={setShowLoginForm}
+                      setIsLoggedIn={setIsLoggedIn}
+                    />
+                  )}
+                </>
+              )}
+              {isLoggedIn && <Quote />}
             </Grid>
             <Grid xs={12} lg={4}>
               <Box

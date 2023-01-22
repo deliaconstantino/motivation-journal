@@ -55,9 +55,7 @@ export const LogIn = ({
         if (response.errors) {
           alert(response.errors.join(". "));
         } else {
-          console.log("response ok", response);
           localStorage.setItem("token", response.jwt);
-          console.log("logged in: response.jwt", response.jwt);
           setEmail("");
           setPassword("");
           setIsLoggedIn(true);

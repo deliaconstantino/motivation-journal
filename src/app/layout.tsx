@@ -16,20 +16,33 @@ export default function RootLayout({
   const [showSignupForm, setShowSignupForm] = useState(false);
 
   useEffect(() => {
-    //TODO: check for user profile on page load
-    const checkLoginStatus = () => {
-      const hasToken = localStorage.getItem("token");
+    // Check if the user is logged in on page load
+    const checkLoginStatus = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        console.log("token", token);
 
-      if (hasToken) {
-        setIsLoggedIn(true);
-        console.log("is logged in");
-      } else {
-        console.log("not logged in");
+        const response = await fetch("http://localhost:3001/api/v1/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log("response", response);
+
+        if (response.ok) setIsLoggedIn(true);
+      } catch (error) {
+        console.log(error);
       }
     };
-
     checkLoginStatus();
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
 
   return (
     <html lang="en">

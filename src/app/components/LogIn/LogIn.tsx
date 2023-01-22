@@ -1,12 +1,5 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import { Form } from "../Form";
 
 export const LogIn = ({
   setIsLoggedIn,
@@ -22,7 +15,7 @@ export const LogIn = ({
     setShowSignupForm(true);
   };
 
-  const handleNameChange = (event) => {
+  const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
@@ -68,63 +61,15 @@ export const LogIn = ({
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1 }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Log in
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={handleNameChange}
-            value={email}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={handlePasswordChange}
-            value={password}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item>
-              <Button onClick={handleFormChange}>
-                Don&#39;t have an account? Sign Up
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Box>
-    </Container>
+    <Form
+      formType="Log In"
+      email={email}
+      password={password}
+      handleSubmit={handleSubmit}
+      handleEmailChange={handleEmailChange}
+      handlePasswordChange={handlePasswordChange}
+      handleFormChange={handleFormChange}
+      message="Don't have an account? Sign Up"
+    />
   );
 };

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Form } from "../Form";
+import { AuthFormsProps } from "../Hero/Guest/AuthForm";
 
 export const LogIn = ({
   setIsLoggedIn,
   setShowLoginForm,
   setShowSignupForm,
-}) => {
-  //TODO: add types
+}: AuthFormsProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,11 +15,11 @@ export const LogIn = ({
     setShowSignupForm(true);
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

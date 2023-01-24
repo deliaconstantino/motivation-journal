@@ -1,10 +1,15 @@
+import { SetIsLoggedInFunctionType } from "@/utils/loggedInContext";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-export const NavBar = ({ showLogOutButton, setIsLoggedIn }) => {
+type NavBarProps = {
+  showLogOutButton: boolean;
+} & SetIsLoggedInFunctionType;
+
+export const NavBar = ({ showLogOutButton, setIsLoggedIn }: NavBarProps) => {
   // TODO: add avatar with inital next to logout button
 
   const handleLogout = () => {

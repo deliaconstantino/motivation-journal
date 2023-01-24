@@ -1,6 +1,11 @@
 import Box from "@mui/material/Box";
 
-export const QuoteWrapper = ({ content, author }) => {
+export type QuoteWrapperProps = {
+  content: string;
+  author: string;
+};
+
+export const QuoteWrapper = ({ content, author }: QuoteWrapperProps) => {
   // Todo: add fade-in
   return (
     <Box mx="auto" textAlign="center" color="white">

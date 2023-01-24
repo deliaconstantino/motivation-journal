@@ -7,6 +7,10 @@ import { Footer, Hero, NavBar } from "./components";
 import "./globals.css";
 import { lightTheme } from "./theme/themes";
 
+export type SetIsLoggedInType = {
+  setIsLoggedIn: (loggedIn: boolean) => void;
+};
+
 export default function RootLayout({
   children,
 }: {

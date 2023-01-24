@@ -1,4 +1,4 @@
-import { LoggedInContext } from "@/utils/loggedInContext";
+import { LoggedInContext, LoggedInContextType } from "@/utils/loggedInContext";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -6,10 +6,10 @@ import { useContext } from "react";
 import { AuthForm, JournalPic } from "./Guest";
 import { LemonadePic, Quote } from "./LoggedInUser";
 
-export const Hero = ({}) => {
-  //TODOs:
-  // add types
-  const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
+export const Hero = () => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(
+    LoggedInContext
+  ) as LoggedInContextType;
 
   return (
     <header>

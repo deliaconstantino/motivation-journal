@@ -5,6 +5,18 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { ChangeEvent, FormEvent } from "react";
+
+type FormProps = {
+  formType: string;
+  email: string;
+  password: string;
+  handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  handleEmailChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handlePasswordChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleFormChange: () => void;
+  message: string;
+};
 
 export const Form = ({
   email,
@@ -15,7 +27,7 @@ export const Form = ({
   handleEmailChange,
   handlePasswordChange,
   handleSubmit,
-}) => {
+}: FormProps) => {
   return (
     <Box
       sx={{

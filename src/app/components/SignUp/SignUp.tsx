@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Form } from "../Form";
+import { AuthFormsProps } from "../Hero/Guest/AuthForm";
 
 export const SignUp = ({
   setIsLoggedIn,
   setShowLoginForm,
   setShowSignupForm,
-}) => {
+}: AuthFormsProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,11 +15,11 @@ export const SignUp = ({
     setShowSignupForm(false);
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 

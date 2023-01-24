@@ -1,16 +1,12 @@
 import useSWR from "swr";
 import { Entry } from "../Entry";
+import { fetcher } from "../utils/fetcher";
 
-import Grid from "@mui/material/Grid";
-import List from "@mui/material/List";
 import { styled } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
 
 const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export const Entries = () => {
   //TODO: add types
@@ -23,17 +19,10 @@ export const Entries = () => {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <Grid item xs={12} md={6}>
-      <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-        Entries
-      </Typography>
-      <Demo>
-        <List dense>
-          {data?.map(({ id, body, updated_at }) => {
-            return <Entry key={id} body={body} updatedAt={updated_at} />;
-          })}
-        </List>
-      </Demo>
-    </Grid>
+    <>
+      {data?.map(({ id, body, updated_at }) => {
+        return <Entry key={id} body={body} updatedAt={updated_at} />;
+      })}
+    </>
   );
 };

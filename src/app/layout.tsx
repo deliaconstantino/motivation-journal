@@ -1,15 +1,48 @@
 "use client";
+import { LoggedInContext } from "@/utils/loggedInContext";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Container from "@mui/material/Container";
-import { Footer, Hero } from "./components";
+import { useEffect, useState } from "react";
+import { Footer, Hero, NavBar } from "./components";
 import "./globals.css";
 import { lightTheme } from "./theme/themes";
+
+export type SetIsLoggedInType = {
+  setIsLoggedIn: (loggedIn: boolean) => void;
+};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  //Todo:
+  // add loading state while user is fetched
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if the user is logged in on page load
+    const checkLoginStatus = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await fetch("http://localhost:3001/api/v1/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log("response", response);
+
+        if (response.ok) setIsLoggedIn(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkLoginStatus();
+  }, []);
+
   return (
     <html lang="en">
       <head>
@@ -20,11 +53,22 @@ export default function RootLayout({
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <body>
-          <Hero />
-          <main>
-            <Container>{children}</Container>
-          </main>
-          <Footer />
+          <LoggedInContext.Provider
+            value={{
+              isLoggedIn,
+              setIsLoggedIn,
+            }}
+          >
+            <NavBar
+              showLogOutButton={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+            <Hero />
+            <main>
+              <Container>{children}</Container>
+            </main>
+            <Footer />
+          </LoggedInContext.Provider>
         </body>
       </ThemeProvider>
     </html>

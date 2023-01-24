@@ -1,24 +1,25 @@
+import { LoggedInContext } from "@/utils/loggedInContext";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import Image from "next/image";
+import { useContext, useState } from "react";
 import { LogInPage } from "../LogInPage/LogInPage";
 import { Quote } from "./Quote";
 
 export const Hero = ({
-  isLoggedIn,
-  showSignupForm,
-  setShowLoginForm,
-  setShowSignupForm,
-  setIsLoggedIn,
-  showLoginForm,
 }) => {
-  //TODOs:
+    //TODOs:
   // add types
+  const { isLoggedIn, setIsLoggedIn } = useContext(LoggedInContext);
+
+  const [showLoginForm, setShowLoginForm] = useState(true);
+  const [showSignupForm, setShowSignupForm] = useState(false);
   return (
     <header>
       {!isLoggedIn && (
         <LogInPage
+          // call Guesthome page
           isLoggedIn={isLoggedIn}
           showSignupForm={showSignupForm}
           setShowLoginForm={setShowLoginForm}
@@ -28,6 +29,7 @@ export const Hero = ({
         />
       )}
       {isLoggedIn && (
+        // loggedin homepage
         <Box
           sx={{
             mt: {

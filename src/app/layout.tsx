@@ -1,4 +1,5 @@
 "use client";
+import { LoggedInContext } from "@/utils/loggedInContext";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
@@ -11,16 +12,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  //Todo:
+  // add loading state while user is fetched
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLoginForm, setShowLoginForm] = useState(true);
-  const [showSignupForm, setShowSignupForm] = useState(false);
 
   useEffect(() => {
     // Check if the user is logged in on page load
     const checkLoginStatus = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("token", token);
 
         const response = await fetch("http://localhost:3001/api/v1/profile", {
           method: "GET",
@@ -39,11 +39,6 @@ export default function RootLayout({
     checkLoginStatus();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-  };
-
   return (
     <html lang="en">
       <head>
@@ -54,19 +49,22 @@ export default function RootLayout({
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <body>
-          <NavBar showLogOutButton={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-          <Hero
-            isLoggedIn={isLoggedIn}
-            showSignupForm={showSignupForm}
-            setShowLoginForm={setShowLoginForm}
-            setShowSignupForm={setShowSignupForm}
-            setIsLoggedIn={setIsLoggedIn}
-            showLoginForm={showLoginForm}
-          />
-          <main>
-            <Container>{children}</Container>
-          </main>
-          <Footer />
+          <LoggedInContext.Provider
+            value={{
+              isLoggedIn,
+              setIsLoggedIn,
+            }}
+          >
+            <NavBar
+              showLogOutButton={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+            <Hero />
+            <main>
+              <Container>{children}</Container>
+            </main>
+            <Footer />
+          </LoggedInContext.Provider>
         </body>
       </ThemeProvider>
     </html>

@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import useSWR from "swr";
-import { fetcher } from "../utils/fetcher";
+import { fetcher } from "../../utils/fetcher";
 import { QuoteWrapper } from "./QuoteWrapper";
 
 export const Quote = () => {

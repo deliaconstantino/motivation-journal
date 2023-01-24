@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import { styled } from "@mui/material/styles";
-import { Entries } from "../Entries";
 import { WritingModal } from "../WritingModal";
 
 const Demo = styled("div")(({ theme }) => ({
@@ -14,7 +13,6 @@ export const Notes = () => {
       <Demo>
         <List dense>
           <WritingModal />
-          <Entries />
         </List>
       </Demo>
     </Grid>

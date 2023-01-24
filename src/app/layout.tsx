@@ -1,9 +1,8 @@
 "use client";
 import { LoggedInContext } from "@/utils/loggedInContext";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
-import { Footer, Hero, NavBar } from "./components";
+import { Footer, NavBar } from "./components";
 import "./globals.css";
 import { lightTheme } from "./theme/themes";
 
@@ -63,9 +62,8 @@ export default function RootLayout({
               showLogOutButton={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
             />
-            <Hero />
             <main>
-              <Container>{children}</Container>
+                {children}
             </main>
             <Footer />
           </LoggedInContext.Provider>

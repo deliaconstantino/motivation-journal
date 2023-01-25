@@ -5,55 +5,68 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { JSONEntry } from "../Entries/Entries";
 
-export type NewEntryFormProps = {
+export type EditEntryFormProps = {
   setShowSuccessfulSaveAlert: (showSuccessfulSaveAlert: boolean) => void;
   handleModalClose: () => void;
-  addNote: (newNote: JSONEntry) => void;
+  currentNote: {
+    title: string;
+    body: string;
+    id: string;
+  };
+  updateNotes: (updatedNote: JSONEntry) => void;
+  handleIsNew: () => void;
 };
 
-export const NewEntryForm = ({
+export const EditEntryForm = ({
   setShowSuccessfulSaveAlert,
   handleModalClose,
-  addNote,
-}: NewEntryFormProps) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  currentNote,
+  updateNotes,
+  handleIsNew,
+}: EditEntryFormProps) => {
+  const [updatedTitle, setUpdatedTitle] = useState(currentNote?.title);
+  const [updatedContent, setUpdatedContent] = useState(currentNote?.body);
+
+  const title = currentNote?.title;
+  const content = currentNote?.body;
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+    setUpdatedTitle(event.target.value);
   };
 
   const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setContent(event.target.value);
+    setUpdatedContent(event.target.value);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const noteTitle = title === "" ? "Untitled" : title;
     const data = {
       entry: {
-        title: noteTitle,
-        body: content,
+        title: updatedTitle,
+        body: updatedContent,
       },
     };
-
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:3001/api/v1/entries", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "content-type": "application/json",
-          accept: "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `http://localhost:3001/api/v1/entries/${currentNote.id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "content-type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const json = await response.json();
 
-        addNote(json);
+        updateNotes(json);
+        handleIsNew();
         handleModalClose();
         setShowSuccessfulSaveAlert(true);
       }
@@ -69,7 +82,8 @@ export const NewEntryForm = ({
           <TextField
             color="secondary"
             id="title"
-            value={title}
+            defaultValue={title}
+            value={updatedTitle}
             label="Title"
             name="title"
             onChange={handleTitleChange}
@@ -86,8 +100,8 @@ export const NewEntryForm = ({
             name="content"
             label="Content"
             type="content"
-            value={content}
-            defaultValue="Default Value"
+            value={updatedContent}
+            defaultValue={content}
             onChange={handleContentChange}
           />
         </Grid>

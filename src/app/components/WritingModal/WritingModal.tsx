@@ -9,6 +9,8 @@ import Modal from "@mui/material/Modal";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import { JSONEntry } from "../Entries/Entries";
+import { EditEntryForm } from "./EditEntryForm";
 import { NewEntryForm } from "./NewEntryForm";
 
 const style = {
@@ -24,22 +26,39 @@ const style = {
   p: 4,
 };
 
-export const WritingModal = () => {
-  const [open, setOpen] = useState(false);
+export type WritingModalProps = {
+  isNew: boolean;
+  open: boolean;
+  handleOpen: () => void;
+  handleClose: () => void;
+  currentNote: {};
+  updateNotes: (updatedNote: JSONEntry) => void;
+  addNote: (newNote: JSONEntry) => void;
+  handleIsNew: () => void;
+};
+
+export const WritingModal = ({
+  currentNote,
+  isNew,
+  open,
+  handleOpen,
+  handleClose,
+  updateNotes,
+  addNote,
+  handleIsNew,
+}: WritingModalProps) => {
   const [showSuccessfulSaveAlert, setShowSuccessfulSaveAlert] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <Box>
       {showSuccessfulSaveAlert && (
-          <Alert
-            onClose={() => setShowSuccessfulSaveAlert(false)}
-            severity="success"
-            sx={{mb: 4}}
-          >
-            Note saved!
-          </Alert>
+        <Alert
+          onClose={() => setShowSuccessfulSaveAlert(false)}
+          severity="success"
+          sx={{ mb: 4 }}
+        >
+          Note saved!
+        </Alert>
       )}
       <ListItem divider>
         <Tooltip title="New note">
@@ -68,10 +87,22 @@ export const WritingModal = () => {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <NewEntryForm
-              setShowSuccessfulSaveAlert={setShowSuccessfulSaveAlert}
-              handleModalClose={handleClose}
-            />
+            {isNew && (
+              <NewEntryForm
+                setShowSuccessfulSaveAlert={setShowSuccessfulSaveAlert}
+                handleModalClose={handleClose}
+                addNote={addNote}
+              />
+            )}
+            {!isNew && (
+              <EditEntryForm
+                setShowSuccessfulSaveAlert={setShowSuccessfulSaveAlert}
+                handleModalClose={handleClose}
+                currentNote={currentNote}
+                updateNotes={updateNotes}
+                handleIsNew={handleIsNew}
+              />
+            )}
           </Box>
         </Fade>
       </Modal>

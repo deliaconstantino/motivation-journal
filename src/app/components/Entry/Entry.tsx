@@ -11,10 +11,23 @@ export type EntryProps = {
   updatedAt: Date;
   createdAt: Date;
   title: string;
+  id: string;
+  handleOpenEditEntryForm: (id: string) => void;
 };
 
-export function Entry({ body, updatedAt, createdAt, title }: EntryProps) {
+export function Entry({
+  body,
+  updatedAt,
+  createdAt,
+  title,
+  id,
+  handleOpenEditEntryForm,
+}: EntryProps) {
   const updatedAtDate = new Date(updatedAt).toDateString();
+
+  const handleEditClick = () => {
+    handleOpenEditEntryForm(id);
+  };
 
   return (
     <ListItem
@@ -28,7 +41,7 @@ export function Entry({ body, updatedAt, createdAt, title }: EntryProps) {
       }
     >
       <Tooltip title="Edit note">
-        <IconButton aria-label="edit" sx={{ mr: 3 }}>
+        <IconButton aria-label="edit" sx={{ mr: 3 }} onClick={handleEditClick}>
           <EditIcon />
         </IconButton>
       </Tooltip>
@@ -41,10 +54,21 @@ export function Entry({ body, updatedAt, createdAt, title }: EntryProps) {
         }
         secondary={
           <>
-            <Typography noWrap variant="body1" color="text.primary">
+            <Typography
+              component="span"
+              noWrap
+              variant="body1"
+              color="text.primary"
+              sx={{ display: "block" }}
+            >
               {body}
             </Typography>
-            <Typography variant="body2" color="text.primary" fontStyle="italic">
+            <Typography
+              component="span"
+              variant="body2"
+              color="text.primary"
+              fontStyle="italic"
+            >
               {updatedAtDate}
             </Typography>
           </>

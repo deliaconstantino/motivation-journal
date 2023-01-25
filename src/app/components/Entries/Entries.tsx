@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import { useEffect } from "react";
 import useSWR from "swr";
 import { Entry } from "../Entry";
 
@@ -17,9 +18,21 @@ export const fetcher = ([url, token]: string[]) =>
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.json());
+  }).then((res) => {
+    return res.json();
+  });
 
-export const Entries = () => {
+export type EntriesProps = {
+  notes: JSONEntry[] | null;
+  setNotes: (notes: JSONEntry[] | null) => void;
+  handleOpenEditEntryForm: (id: string) => void;
+};
+
+export const Entries = ({
+  notes,
+  setNotes,
+  handleOpenEditEntryForm,
+}: EntriesProps) => {
   const token = localStorage.getItem("token");
 
   const { data, error, isLoading } = useSWR<JSONEntry[], Error>(
@@ -27,21 +40,25 @@ export const Entries = () => {
     fetcher
   );
 
-  console.log("data", data);
+  useEffect(() => {
+    if (data) setNotes(data);
+  }, [data, setNotes]);
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
   return (
     <Box mb={12}>
-      {data?.map(({ id, body, updated_at, created_at, title }) => {
+      {notes?.map(({ id, body, updated_at, created_at, title }) => {
         return (
           <Entry
             key={id}
+            id={id}
             title={title}
             body={body}
             updatedAt={updated_at}
             createdAt={created_at}
+            handleOpenEditEntryForm={handleOpenEditEntryForm}
           />
         );
       })}

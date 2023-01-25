@@ -1,7 +1,7 @@
 "use client";
 import { LoggedInContext } from "@/utils/loggedInContext";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Footer, NavBar } from "./components";
 import "./globals.css";
 import { lightTheme } from "./theme/themes";
@@ -10,11 +10,7 @@ export type SetIsLoggedInType = {
   setIsLoggedIn: (loggedIn: boolean) => void;
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   //Todo:
   // add loading state while user is fetched
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,8 +27,6 @@ export default function RootLayout({
             Authorization: `Bearer ${token}`,
           },
         });
-
-        console.log("response", response);
 
         if (response.ok) setIsLoggedIn(true);
       } catch (error) {
@@ -62,9 +56,7 @@ export default function RootLayout({
               showLogOutButton={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
             />
-            <main>
-                {children}
-            </main>
+            <main>{children}</main>
             <Footer />
           </LoggedInContext.Provider>
         </body>

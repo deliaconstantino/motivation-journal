@@ -12,7 +12,9 @@ const Demo = styled("div")(({ theme }) => ({
 export const Notes = () => {
   return (
     <>
-      <Typography color="#d15842" variant="h1" sx={{ mb: 4 }} fontWeight="bold">
+      <Typography
+      color="text.primary"
+      variant="h2" sx={{ mb: 4 }} fontWeight="bold" id="notes">
         Notes
       </Typography>
       <Grid item xs={12} md={6}>

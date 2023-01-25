@@ -50,7 +50,7 @@ export const EditEntryForm = ({
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:3001/api/v1/entries/${currentNote.id}`,
+        `http://localhost:3001/api/v1/entries/${currentNote?.id}`,
         {
           method: "PUT",
           headers: {

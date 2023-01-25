@@ -16,7 +16,11 @@ export const Notes = () => {
   const [isNew, setIsNew] = useState(true);
   const [open, setOpen] = useState(false);
 
-  const [currentNote, setCurrentNote] = useState({});
+  const [currentNote, setCurrentNote] = useState({
+    title: "",
+    body: "",
+    id: "",
+  });
 
   const updateNotes = (noteToUpdate: JSONEntry) => {
     const newNotes =
@@ -34,7 +38,9 @@ export const Notes = () => {
   };
 
   const handleOpenEditEntryForm = (id: string) => {
-    setCurrentNote(notes?.find((note) => note.id === id) || {});
+    setCurrentNote(
+      (prevNote) => notes?.find((note) => note.id === id) || prevNote
+    );
     setOpen(true);
     setIsNew(false);
   };

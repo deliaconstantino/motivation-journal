@@ -31,7 +31,11 @@ export type WritingModalProps = {
   open: boolean;
   handleOpen: () => void;
   handleClose: () => void;
-  currentNote: {};
+  currentNote: {
+    title: string;
+    body: string;
+    id: string;
+  };
   updateNotes: (updatedNote: JSONEntry) => void;
   addNote: (newNote: JSONEntry) => void;
   handleIsNew: () => void;

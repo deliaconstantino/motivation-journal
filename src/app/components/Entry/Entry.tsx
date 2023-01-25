@@ -1,29 +1,55 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 
-export function Entry({ body, updatedAt }) {
+export type EntryProps = {
+  body: string;
+  updatedAt: Date;
+  createdAt: Date;
+  title: string;
+};
+
+export function Entry({ body, updatedAt, createdAt, title }: EntryProps) {
   const updatedAtDate = new Date(updatedAt).toDateString();
 
   return (
     <ListItem
       divider
       secondaryAction={
-        <IconButton edge="end" aria-label="delete">
-          <DeleteIcon />
-        </IconButton>
+        <Tooltip title="Delete note">
+          <IconButton aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
       }
     >
-      <ListItemAvatar>
-        <Avatar>
+      <Tooltip title="Edit note">
+        <IconButton aria-label="edit" sx={{ mr: 3 }}>
           <EditIcon />
-        </Avatar>
-      </ListItemAvatar>
-      <ListItemText primary={body} secondary={`Updated: ${updatedAtDate}`} />
+        </IconButton>
+      </Tooltip>
+      <ListItemText
+        sx={{ mr: 8 }}
+        primary={
+          <Typography variant="h6" fontWeight="bold" color="text.primary">
+            {title}
+          </Typography>
+        }
+        secondary={
+          <>
+            <Typography noWrap variant="body1" color="text.primary">
+              {body}
+            </Typography>
+            <Typography variant="body2" color="text.primary" fontStyle="italic">
+              {updatedAtDate}
+            </Typography>
+          </>
+        }
+      />
     </ListItem>
   );
 }

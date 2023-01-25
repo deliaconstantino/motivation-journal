@@ -10,7 +10,7 @@ export const QuoteWrapper = ({ content, author }: QuoteWrapperProps) => {
   return (
     <Box mx="auto" textAlign="center" color="white">
       <h2>{content}</h2>
-      <p> -- {author}</p>
+      <p> — {author}</p>
     </Box>
   );
 };

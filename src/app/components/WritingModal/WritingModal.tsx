@@ -1,11 +1,11 @@
 import AddIcon from "@mui/icons-material/Add";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
+import IconButton from "@mui/material/IconButton";
 import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
 import Modal from "@mui/material/Modal";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
@@ -28,15 +28,24 @@ export const WritingModal = () => {
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
+    <Box>
       <ListItem divider>
-        <ListItemAvatar>
-          <Avatar>
-            <Button onClick={handleOpen}>
-              <AddIcon />
-            </Button>
-          </Avatar>
-        </ListItemAvatar>
+        <Tooltip title="New note">
+          <IconButton
+            aria-label="create"
+            onClick={handleOpen}
+            sx={{ mb: 2, mr: 3 }}
+          >
+            <AddIcon />
+          </IconButton>
+        </Tooltip>
+        <ListItemText
+          primary={
+            <Typography variant="body1" color="text.primary" fontStyle="italic">
+              write a new note...
+            </Typography>
+          }
+        />
       </ListItem>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -56,6 +65,6 @@ export const WritingModal = () => {
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </Box>
   );
 };

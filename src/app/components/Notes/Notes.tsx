@@ -42,14 +42,10 @@ export const Notes = () => {
   };
 
   const updateNotes = (noteToUpdate: JSONEntry) => {
-    const newNotes =
-      notes?.map((note) => {
-        if (note.id !== noteToUpdate.id) return note;
+    const existingNotes =
+      notes?.filter((note) => note.id !== noteToUpdate.id) || [];
 
-        return noteToUpdate;
-      }) || null;
-
-    setNotes(newNotes);
+    setNotes([noteToUpdate].concat(existingNotes));
   };
 
   const deleteNoteFromState = (id: string) => {
@@ -59,7 +55,9 @@ export const Notes = () => {
   };
 
   const addNote = (newNote: JSONEntry) => {
-    setNotes((prevNotes) => prevNotes?.concat([newNote]) || null);
+    const existingNotes = notes || [];
+
+    setNotes([newNote].concat(existingNotes));
   };
 
   const handleOpenEditEntryForm = (id: string) => {

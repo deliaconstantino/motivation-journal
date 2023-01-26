@@ -1,10 +1,7 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { JSONEntry } from "../Entries/Entries";
 import { SnackbarMessage } from "../Notes";
+import { EntryFormBase } from "./EntryFormBase";
 
 export type NewEntryFormProps = {
   handleModalClose: () => void;
@@ -19,6 +16,7 @@ export const NewEntryForm = ({
 }: NewEntryFormProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [error, setError] = useState(false);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -57,6 +55,11 @@ export const NewEntryForm = ({
         addNote(json);
         handleModalClose();
         updateSnackbar(SnackbarMessage.Saved);
+      } else {
+        const json = await response.json();
+
+        console.log(json.errors.join(". "));
+        setError(true);
       }
     } catch (error) {
       console.log(error);
@@ -64,42 +67,13 @@ export const NewEntryForm = ({
   };
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            color="secondary"
-            id="title"
-            value={title}
-            label="Title"
-            name="title"
-            onChange={handleTitleChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="outlined-multiline-static"
-            multiline
-            rows={14}
-            color="secondary"
-            required
-            fullWidth
-            name="content"
-            label="Content"
-            type="content"
-            value={content}
-            onChange={handleContentChange}
-          />
-        </Grid>
-      </Grid>
-      <Button
-        type="submit"
-        variant="contained"
-        color="secondary"
-        sx={{ mt: 3, mb: 2, px: 4 }}
-      >
-        Save
-      </Button>
-    </Box>
+    <EntryFormBase
+      title={title}
+      handleTitleChange={handleTitleChange}
+      content={content}
+      handleContentChange={handleContentChange}
+      handleSubmit={handleSubmit}
+      error={error}
+    />
   );
 };

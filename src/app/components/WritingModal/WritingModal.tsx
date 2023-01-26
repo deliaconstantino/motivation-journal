@@ -20,9 +20,9 @@ const style = {
   width: "80vw",
   minHeight: 500,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: { xs: 2, md: 4 },
 };
 
 export type WritingModalProps = {
@@ -54,12 +54,12 @@ export const WritingModal = ({
 }: WritingModalProps) => {
   return (
     <Box>
-      <ListItem divider>
+      <ListItem divider sx={{ pl: { xs: 0, md: 2 } }}>
         <Tooltip title="New note">
           <IconButton
             aria-label="create"
             onClick={handleOpen}
-            sx={{ mb: 2, mr: 3 }}
+            sx={{ mb: 2, mr: { xs: 1, md: 3 } }}
           >
             <AddIcon />
           </IconButton>

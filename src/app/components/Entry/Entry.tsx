@@ -35,7 +35,6 @@ export function Entry({
   };
 
   const handleDeleteEntry = async () => {
-    console.log("hit delete. ID:", id);
     try {
       const token = localStorage.getItem("token");
 
@@ -61,6 +60,7 @@ export function Entry({
   return (
     <ListItem
       divider
+      sx={{ pl: { xs: 0, md: 2 } }}
       secondaryAction={
         <Tooltip title="Delete note">
           <IconButton aria-label="delete" onClick={handleDeleteEntry}>
@@ -70,12 +70,16 @@ export function Entry({
       }
     >
       <Tooltip title="Edit note">
-        <IconButton aria-label="edit" sx={{ mr: 3 }} onClick={handleEditClick}>
+        <IconButton
+          aria-label="edit"
+          sx={{ mr: { xs: 1, md: 3 } }}
+          onClick={handleEditClick}
+        >
           <EditIcon />
         </IconButton>
       </Tooltip>
       <ListItemText
-        sx={{ mr: 8 }}
+        sx={{ mr: { md: 8 } }}
         primary={
           <Typography variant="h6" fontWeight="bold" color="text.primary">
             {title}

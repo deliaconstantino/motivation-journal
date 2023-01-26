@@ -1,10 +1,7 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { JSONEntry } from "../Entries/Entries";
 import { SnackbarMessage } from "../Notes";
+import { EntryFormBase } from "./EntryFormBase";
 
 export type EditEntryFormProps = {
   handleModalClose: () => void;
@@ -25,26 +22,27 @@ export const EditEntryForm = ({
   handleIsNew,
   updateSnackbar,
 }: EditEntryFormProps) => {
-  const [updatedTitle, setUpdatedTitle] = useState(currentNote?.title);
-  const [updatedContent, setUpdatedContent] = useState(currentNote?.body);
+  const [title, setTitle] = useState(currentNote?.title);
+  const [content, setContent] = useState(currentNote?.body);
+  const [error, setError] = useState(false);
 
-  const title = currentNote?.title;
-  const content = currentNote?.body;
+  const existingTitle = currentNote?.title;
+  const existingContent = currentNote?.body;
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedTitle(event.target.value);
+    setTitle(event.target.value);
   };
 
   const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedContent(event.target.value);
+    setContent(event.target.value);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = {
       entry: {
-        title: updatedTitle,
-        body: updatedContent,
+        title: title,
+        body: content,
       },
     };
     try {
@@ -70,6 +68,11 @@ export const EditEntryForm = ({
         handleIsNew();
         handleModalClose();
         updateSnackbar(SnackbarMessage.Updated);
+      } else {
+        const json = await response.json();
+
+        console.log(json.errors.join(". "));
+        setError(true);
       }
     } catch (error) {
       console.log(error);
@@ -77,44 +80,15 @@ export const EditEntryForm = ({
   };
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            color="secondary"
-            id="title"
-            defaultValue={title}
-            value={updatedTitle}
-            label="Title"
-            name="title"
-            onChange={handleTitleChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="outlined-multiline-static"
-            multiline
-            rows={14}
-            color="secondary"
-            required
-            fullWidth
-            name="content"
-            label="Content"
-            type="content"
-            value={updatedContent}
-            defaultValue={content}
-            onChange={handleContentChange}
-          />
-        </Grid>
-      </Grid>
-      <Button
-        type="submit"
-        variant="contained"
-        color="secondary"
-        sx={{ mt: 3, mb: 2, px: 4 }}
-      >
-        Save
-      </Button>
-    </Box>
+    <EntryFormBase
+      title={title}
+      handleTitleChange={handleTitleChange}
+      content={content}
+      existingTitle={existingTitle}
+      existingContent={existingContent}
+      handleContentChange={handleContentChange}
+      handleSubmit={handleSubmit}
+      error={error}
+    />
   );
 };

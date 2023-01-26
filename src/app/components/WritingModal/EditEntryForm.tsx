@@ -22,12 +22,9 @@ export const EditEntryForm = ({
   handleIsNew,
   updateSnackbar,
 }: EditEntryFormProps) => {
-  const [title, setTitle] = useState(currentNote?.title);
-  const [content, setContent] = useState(currentNote?.body);
+  const [title, setTitle] = useState(currentNote.title);
+  const [content, setContent] = useState(currentNote.body);
   const [error, setError] = useState(false);
-
-  const existingTitle = currentNote?.title;
-  const existingContent = currentNote?.body;
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -84,8 +81,6 @@ export const EditEntryForm = ({
       title={title}
       handleTitleChange={handleTitleChange}
       content={content}
-      existingTitle={existingTitle}
-      existingContent={existingContent}
       handleContentChange={handleContentChange}
       handleSubmit={handleSubmit}
       error={error}

@@ -6,8 +6,6 @@ import TextField from "@mui/material/TextField";
 export type EntryFormBaseProps = {
   title: string;
   content: string;
-  existingTitle?: string;
-  existingContent?: string;
   error: boolean;
   handleTitleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleContentChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,8 +17,6 @@ export const EntryFormBase = ({
   content,
   handleContentChange,
   handleSubmit,
-  existingTitle,
-  existingContent,
   error,
 }: EntryFormBaseProps) => {
   return (
@@ -31,7 +27,6 @@ export const EntryFormBase = ({
             color="secondary"
             id="title"
             value={title}
-            defaultValue={existingTitle || title}
             label="Title"
             name="title"
             onChange={handleTitleChange}
@@ -50,7 +45,6 @@ export const EntryFormBase = ({
             label="Content"
             type="content"
             value={content}
-            defaultValue={existingContent || content}
             onChange={handleContentChange}
             helperText={error ? "Content cannot be blank" : null}
           />

@@ -4,9 +4,9 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { JSONEntry } from "../Entries/Entries";
+import { SnackbarMessage } from "../Notes";
 
 export type EditEntryFormProps = {
-  setShowSuccessfulSaveAlert: (showSuccessfulSaveAlert: boolean) => void;
   handleModalClose: () => void;
   currentNote: {
     title: string;
@@ -15,14 +15,15 @@ export type EditEntryFormProps = {
   };
   updateNotes: (updatedNote: JSONEntry) => void;
   handleIsNew: () => void;
+  updateSnackbar: (message: SnackbarMessage) => void;
 };
 
 export const EditEntryForm = ({
-  setShowSuccessfulSaveAlert,
   handleModalClose,
   currentNote,
   updateNotes,
   handleIsNew,
+  updateSnackbar,
 }: EditEntryFormProps) => {
   const [updatedTitle, setUpdatedTitle] = useState(currentNote?.title);
   const [updatedContent, setUpdatedContent] = useState(currentNote?.body);
@@ -68,7 +69,7 @@ export const EditEntryForm = ({
         updateNotes(json);
         handleIsNew();
         handleModalClose();
-        setShowSuccessfulSaveAlert(true);
+        updateSnackbar(SnackbarMessage.Updated);
       }
     } catch (error) {
       console.log(error);

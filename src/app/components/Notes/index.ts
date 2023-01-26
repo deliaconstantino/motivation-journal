@@ -1,1 +1,1 @@
-export { Notes } from "./Notes";
+export { Notes, SnackbarMessage } from "./Notes";

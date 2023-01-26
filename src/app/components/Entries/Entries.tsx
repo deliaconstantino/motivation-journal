@@ -2,6 +2,8 @@ import Box from "@mui/material/Box";
 import { useEffect } from "react";
 import useSWR from "swr";
 import { Entry } from "../Entry";
+import { LoadingSpinner } from "../LoadingSpinner";
+import { SnackbarMessage } from "../Notes";
 
 export type JSONEntry = {
   body: string;
@@ -28,6 +30,7 @@ export type EntriesProps = {
   setNotes: (notes: JSONEntry[] | null) => void;
   handleOpenEditEntryForm: (id: string) => void;
   deleteNoteFromState: (id: string) => void;
+  updateSnackbar: (message: SnackbarMessage) => void;
 };
 
 export const Entries = ({
@@ -35,7 +38,7 @@ export const Entries = ({
   setNotes,
   handleOpenEditEntryForm,
   deleteNoteFromState,
-  setShowSnackbar
+  updateSnackbar,
 }: EntriesProps) => {
   const token = localStorage.getItem("token");
 
@@ -49,7 +52,7 @@ export const Entries = ({
   }, [data, setNotes]);
 
   if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <LoadingSpinner color="#d15842" />;
 
   return (
     <Box mb={12}>
@@ -64,7 +67,7 @@ export const Entries = ({
             createdAt={created_at}
             handleOpenEditEntryForm={handleOpenEditEntryForm}
             deleteNoteFromState={deleteNoteFromState}
-            setShowSnackbar={setShowSnackbar}
+            updateSnackbar={updateSnackbar}
           />
         );
       })}

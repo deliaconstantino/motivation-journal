@@ -4,17 +4,18 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { JSONEntry } from "../Entries/Entries";
+import { SnackbarMessage } from "../Notes";
 
 export type NewEntryFormProps = {
-  setShowSuccessfulSaveAlert: (showSuccessfulSaveAlert: boolean) => void;
   handleModalClose: () => void;
   addNote: (newNote: JSONEntry) => void;
+  updateSnackbar: (message: SnackbarMessage) => void;
 };
 
 export const NewEntryForm = ({
-  setShowSuccessfulSaveAlert,
   handleModalClose,
   addNote,
+  updateSnackbar,
 }: NewEntryFormProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -55,7 +56,7 @@ export const NewEntryForm = ({
 
         addNote(json);
         handleModalClose();
-        setShowSuccessfulSaveAlert(true);
+        updateSnackbar(SnackbarMessage.Saved);
       }
     } catch (error) {
       console.log(error);
@@ -87,7 +88,6 @@ export const NewEntryForm = ({
             label="Content"
             type="content"
             value={content}
-            defaultValue="Default Value"
             onChange={handleContentChange}
           />
         </Grid>

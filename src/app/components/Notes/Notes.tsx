@@ -15,17 +15,31 @@ const Demo = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
+export enum SnackbarMessage {
+  Saved = "Note Saved!",
+  Updated = "Note Updated!",
+  Deleted = "Note Deleted!",
+}
+
 export const Notes = () => {
   const [notes, setNotes] = useState<JSONEntry[] | null>(null);
   const [isNew, setIsNew] = useState(true);
   const [open, setOpen] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState<SnackbarMessage>(
+    SnackbarMessage.Saved
+  );
 
   const [currentNote, setCurrentNote] = useState({
     title: "",
     body: "",
     id: "",
   });
+
+  const updateSnackbar = (message: SnackbarMessage) => {
+    setSnackbarMessage(message);
+    setShowSnackbar(true);
+  };
 
   const updateNotes = (noteToUpdate: JSONEntry) => {
     const newNotes =
@@ -82,7 +96,7 @@ export const Notes = () => {
           onClose={() => setShowSnackbar(false)}
         >
           <Alert severity="success" sx={{ mb: 4 }}>
-            Note Deleted!
+            {snackbarMessage}
           </Alert>
         </Snackbar>
         <Grid item xs={12} md={6}>
@@ -97,13 +111,14 @@ export const Notes = () => {
                 updateNotes={updateNotes}
                 addNote={addNote}
                 handleIsNew={handleIsNew}
+                updateSnackbar={updateSnackbar}
               />
               <Entries
                 notes={notes}
                 setNotes={setNotes}
                 handleOpenEditEntryForm={handleOpenEditEntryForm}
                 deleteNoteFromState={deleteNoteFromState}
-                setShowSnackbar={setShowSnackbar}
+                updateSnackbar={updateSnackbar}
               />
             </List>
           </Demo>

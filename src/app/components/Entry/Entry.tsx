@@ -5,6 +5,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { SnackbarMessage } from "../Notes";
 
 export type EntryProps = {
   body: string;
@@ -13,7 +14,8 @@ export type EntryProps = {
   title: string;
   id: string;
   handleOpenEditEntryForm: (id: string) => void;
-  deleteNoteFromState:  (id: string) => void;
+  deleteNoteFromState: (id: string) => void;
+  updateSnackbar: (message: SnackbarMessage) => void;
 };
 
 export function Entry({
@@ -24,7 +26,7 @@ export function Entry({
   id,
   handleOpenEditEntryForm,
   deleteNoteFromState,
-  setShowSnackbar
+  updateSnackbar,
 }: EntryProps) {
   const updatedAtDate = new Date(updatedAt).toDateString();
 
@@ -33,30 +35,28 @@ export function Entry({
   };
 
   const handleDeleteEntry = async () => {
-    console.log("hit delete. ID:", id)
-      try {
-        const token = localStorage.getItem("token");
+    console.log("hit delete. ID:", id);
+    try {
+      const token = localStorage.getItem("token");
 
-        const response = await fetch(
-          `http://localhost:3001/api/v1/entries/${id}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (response.ok) {
-          console.log("response", response)
-          deleteNoteFromState(id);
-          console.log("deleted!")
-          setShowSnackbar(true)
+      const response = await fetch(
+        `http://localhost:3001/api/v1/entries/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
-        console.log(error);
+      );
+
+      if (response.ok) {
+        deleteNoteFromState(id);
+        updateSnackbar(SnackbarMessage.Deleted);
       }
-  }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <ListItem

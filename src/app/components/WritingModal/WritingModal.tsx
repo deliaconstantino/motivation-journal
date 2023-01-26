@@ -1,16 +1,14 @@
 import AddIcon from "@mui/icons-material/Add";
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import IconButton from "@mui/material/IconButton";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Modal from "@mui/material/Modal";
-import Snackbar from "@mui/material/Snackbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
 import { JSONEntry } from "../Entries/Entries";
+import { SnackbarMessage } from "../Notes";
 import { EditEntryForm } from "./EditEntryForm";
 import { NewEntryForm } from "./NewEntryForm";
 
@@ -40,6 +38,7 @@ export type WritingModalProps = {
   updateNotes: (updatedNote: JSONEntry) => void;
   addNote: (newNote: JSONEntry) => void;
   handleIsNew: () => void;
+  updateSnackbar: (message: SnackbarMessage) => void;
 };
 
 export const WritingModal = ({
@@ -51,20 +50,10 @@ export const WritingModal = ({
   updateNotes,
   addNote,
   handleIsNew,
+  updateSnackbar,
 }: WritingModalProps) => {
-  const [showSuccessfulSaveAlert, setShowSuccessfulSaveAlert] = useState(false);
-
   return (
     <Box>
-      <Snackbar
-        open={showSuccessfulSaveAlert}
-        autoHideDuration={6000}
-        onClose={() => setShowSuccessfulSaveAlert(false)}
-      >
-        <Alert severity="success" sx={{ mb: 4 }}>
-          Note saved!
-        </Alert>
-      </Snackbar>
       <ListItem divider>
         <Tooltip title="New note">
           <IconButton
@@ -94,18 +83,18 @@ export const WritingModal = ({
           <Box sx={style}>
             {isNew && (
               <NewEntryForm
-                setShowSuccessfulSaveAlert={setShowSuccessfulSaveAlert}
                 handleModalClose={handleClose}
                 addNote={addNote}
+                updateSnackbar={updateSnackbar}
               />
             )}
             {!isNew && (
               <EditEntryForm
-                setShowSuccessfulSaveAlert={setShowSuccessfulSaveAlert}
                 handleModalClose={handleClose}
                 currentNote={currentNote}
                 updateNotes={updateNotes}
                 handleIsNew={handleIsNew}
+                updateSnackbar={updateSnackbar}
               />
             )}
           </Box>

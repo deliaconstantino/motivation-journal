@@ -11,12 +11,10 @@ export type SetIsLoggedInType = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  //Todo:
-  // add loading state while user is fetched
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userCheckComplete, setUserCheckComplete] = useState(false);
 
   useEffect(() => {
-    // Check if the user is logged in on page load
     const checkLoginStatus = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -28,9 +26,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           },
         });
 
-        if (response.ok) setIsLoggedIn(true);
+        if (response.ok) {
+          setIsLoggedIn(true);
+        }
+
+        setUserCheckComplete(true);
       } catch (error) {
         console.log(error);
+        setUserCheckComplete(true);
       }
     };
     checkLoginStatus();
@@ -50,6 +53,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             value={{
               isLoggedIn,
               setIsLoggedIn,
+              userCheckComplete,
             }}
           >
             <NavBar

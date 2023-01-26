@@ -1,3 +1,5 @@
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import { styled } from "@mui/material/styles";
@@ -54,38 +56,40 @@ export const Notes = () => {
   };
 
   return (
-    <>
-      <Typography
-        color="text.primary"
-        variant="h2"
-        sx={{ mb: 4 }}
-        fontWeight="bold"
-        id="notes"
-      >
-        Notes
-      </Typography>
-      <Grid item xs={12} md={6}>
-        <Demo>
-          <List dense>
-            <WritingModal
-              isNew={isNew}
-              open={open}
-              handleOpen={handleOpen}
-              handleClose={handleClose}
-              currentNote={currentNote}
-              updateNotes={updateNotes}
-              addNote={addNote}
-              handleIsNew={handleIsNew}
-            />
-            <Entries
-              notes={notes}
-              setNotes={setNotes}
-              handleOpenEditEntryForm={handleOpenEditEntryForm}
-            />
-          </List>
-        </Demo>
-      </Grid>
-    </>
+    <Box sx={{ pt: { xs: 6, md: 0 } }}>
+      <Container>
+        <Typography
+          color="text.primary"
+          variant="h2"
+          sx={{ mb: 4 }}
+          fontWeight="bold"
+          id="notes"
+        >
+          Notes
+        </Typography>
+        <Grid item xs={12} md={6}>
+          <Demo>
+            <List dense>
+              <WritingModal
+                isNew={isNew}
+                open={open}
+                handleOpen={handleOpen}
+                handleClose={handleClose}
+                currentNote={currentNote}
+                updateNotes={updateNotes}
+                addNote={addNote}
+                handleIsNew={handleIsNew}
+              />
+              <Entries
+                notes={notes}
+                setNotes={setNotes}
+                handleOpenEditEntryForm={handleOpenEditEntryForm}
+              />
+            </List>
+          </Demo>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 

@@ -1,6 +1,8 @@
 export { Entries } from "./Entries";
 export { Footer } from "./Footer";
 export { Hero } from "./Hero";
+export { Information } from "./Information";
+export { LoadingSpinner } from "./LoadingSpinner";
 export { LogIn } from "./LogIn";
 export { NavBar } from "./NavBar";
 export { Notes } from "./Notes";

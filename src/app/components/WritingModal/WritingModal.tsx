@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Modal from "@mui/material/Modal";
+import Snackbar from "@mui/material/Snackbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
@@ -55,15 +56,15 @@ export const WritingModal = ({
 
   return (
     <Box>
-      {showSuccessfulSaveAlert && (
-        <Alert
-          onClose={() => setShowSuccessfulSaveAlert(false)}
-          severity="success"
-          sx={{ mb: 4 }}
-        >
+      <Snackbar
+        open={showSuccessfulSaveAlert}
+        autoHideDuration={6000}
+        onClose={() => setShowSuccessfulSaveAlert(false)}
+      >
+        <Alert severity="success" sx={{ mb: 4 }}>
           Note saved!
         </Alert>
-      )}
+      </Snackbar>
       <ListItem divider>
         <Tooltip title="New note">
           <IconButton

@@ -1,17 +1,19 @@
 "use client";
 
 import { LoggedInContext, LoggedInContextType } from "@/utils/loggedInContext";
-import Container from "@mui/material/Container";
 import { useContext } from "react";
-import { Hero, Notes } from "./components";
+import { Hero, Information, LoadingSpinner, Notes } from "./components";
 
 export default function Home() {
-  //TODO: add component for quest user
-  const { isLoggedIn } = useContext(LoggedInContext) as LoggedInContextType;
+  const { isLoggedIn, userCheckComplete } = useContext(
+    LoggedInContext
+  ) as LoggedInContextType;
+
+  const Content = isLoggedIn ? <Notes /> : <Information />;
   return (
     <>
       <Hero />
-      <Container>{isLoggedIn && <Notes />}</Container>
+      {userCheckComplete ? Content : <LoadingSpinner color="#d15842" />}
     </>
   );
 }

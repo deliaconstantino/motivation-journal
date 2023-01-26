@@ -11,14 +11,14 @@ const IMAGE_SIZE_REDUCTION = 0.8;
 export const Information = () => {
   return (
     <Box
-      sx={{ backgroundColor: "#FAF8F5", height: "85vh", pt: { xs: 6, md: 0 } }}
+      sx={{ backgroundColor: "#FBFCFE", height: "85vh", pt: { xs: 6, md: 0 } }}
     >
       <Container>
         <Typography
           component="h1"
           variant="h2"
           fontWeight="bold"
-          color="#404040"
+          color="#0a2540"
           sx={{
             mb: {
               xs: 4,

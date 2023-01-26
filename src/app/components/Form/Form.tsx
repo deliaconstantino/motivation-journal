@@ -43,7 +43,7 @@ export const Form = ({
       <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component="h3" variant="h5" color="#404040">
+      <Typography component="h3" variant="h5" color="#0a2540">
         {formType}
       </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -96,7 +96,12 @@ export const Form = ({
           justifyContent={formType === "Sign Up" ? "flex-end" : "flex-start"}
         >
           <Grid item>
-            <Button onClick={handleFormChange} sx={{ color: "#404040" }}>
+            <Button
+              onClick={handleFormChange}
+              sx={{
+                color: "#0a2540",
+              }}
+            >
               {message}
             </Button>
           </Grid>

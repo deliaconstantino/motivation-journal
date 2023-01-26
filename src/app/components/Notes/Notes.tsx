@@ -80,7 +80,7 @@ export const Notes = () => {
     <Box sx={{ pt: { xs: 6, md: 0 } }}>
       <Container>
         <Typography
-          color="text.primary"
+          color="#0a2540"
           variant="h2"
           sx={{ mb: 4 }}
           fontWeight="bold"

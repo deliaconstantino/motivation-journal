@@ -27,7 +27,7 @@ export const JournalPic = () => {
         component="h1"
         variant="h5"
         textAlign="right"
-        color="#404040"
+        color="#0a2540"
         sx={{
           fontWeight: 700,
           mr: {

@@ -16,6 +16,8 @@ type FormProps = {
   handlePasswordChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleFormChange: () => void;
   message: string;
+  emailError: boolean;
+  passwordError: boolean;
 };
 
 export const Form = ({
@@ -27,6 +29,8 @@ export const Form = ({
   handleEmailChange,
   handlePasswordChange,
   handleSubmit,
+  emailError,
+  passwordError,
 }: FormProps) => {
   return (
     <Box
@@ -39,7 +43,7 @@ export const Form = ({
       <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component="h3" variant="h5" color="#404040">
+      <Typography component="h3" variant="h5" color="#0a2540">
         {formType}
       </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -55,11 +59,12 @@ export const Form = ({
               name="email"
               autoComplete="email"
               onChange={handleEmailChange}
+              error={emailError}
+              helperText={emailError ? "Please enter a valid email" : null}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              sx={{ borderColor: "white" }}
               color="secondary"
               required
               fullWidth
@@ -70,6 +75,10 @@ export const Form = ({
               id="password"
               autoComplete="new-password"
               onChange={handlePasswordChange}
+              error={passwordError}
+              helperText={
+                passwordError ? "Please enter a valid password" : null
+              }
             />
           </Grid>
         </Grid>
@@ -87,7 +96,12 @@ export const Form = ({
           justifyContent={formType === "Sign Up" ? "flex-end" : "flex-start"}
         >
           <Grid item>
-            <Button onClick={handleFormChange} sx={{ color: "#404040" }}>
+            <Button
+              onClick={handleFormChange}
+              sx={{
+                color: "#0a2540",
+              }}
+            >
               {message}
             </Button>
           </Grid>

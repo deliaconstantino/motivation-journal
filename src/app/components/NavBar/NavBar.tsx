@@ -26,8 +26,8 @@ export const NavBar = ({ showLogOutButton, setIsLoggedIn }: NavBarProps) => {
       <AppBar position="fixed">
         <Toolbar
           sx={{
-            backgroundColor: "#f3ecfd",
             color: "#d15842",
+            backgroundImage: "linear-gradient(125deg, #f3ecfd, #f6f9fc)",
           }}
         >
           <Typography

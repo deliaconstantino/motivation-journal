@@ -1,9 +1,8 @@
 "use client";
 import { LoggedInContext } from "@/utils/loggedInContext";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
-import { Footer, Hero, NavBar } from "./components";
+import { ReactNode, useEffect, useState } from "react";
+import { Footer, NavBar } from "./components";
 import "./globals.css";
 import { lightTheme } from "./theme/themes";
 
@@ -11,17 +10,11 @@ export type SetIsLoggedInType = {
   setIsLoggedIn: (loggedIn: boolean) => void;
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  //Todo:
-  // add loading state while user is fetched
+export default function RootLayout({ children }: { children: ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userCheckComplete, setUserCheckComplete] = useState(false);
 
   useEffect(() => {
-    // Check if the user is logged in on page load
     const checkLoginStatus = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -33,11 +26,14 @@ export default function RootLayout({
           },
         });
 
-        console.log("response", response);
+        if (response.ok) {
+          setIsLoggedIn(true);
+        }
 
-        if (response.ok) setIsLoggedIn(true);
+        setUserCheckComplete(true);
       } catch (error) {
         console.log(error);
+        setUserCheckComplete(true);
       }
     };
     checkLoginStatus();
@@ -57,16 +53,14 @@ export default function RootLayout({
             value={{
               isLoggedIn,
               setIsLoggedIn,
+              userCheckComplete,
             }}
           >
             <NavBar
               showLogOutButton={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
             />
-            <Hero />
-            <main>
-              <Container>{children}</Container>
-            </main>
+            <main>{children}</main>
             <Footer />
           </LoggedInContext.Provider>
         </body>

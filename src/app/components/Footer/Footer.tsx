@@ -1,28 +1,73 @@
+import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import Image from "next/image";
 
 export const Footer = () => {
   return (
     <footer>
       <Box
         sx={{
-          background:
-            "linear-gradient( 135deg, rgba(209,88,66,1) 0%, rgba(228,251,77,0.7777485994397759) 100% )",
+          backgroundImage: "linear-gradient(125deg, #f6f9fc, #f3ecfd)",
+          py: 3,
+          display: "flex",
         }}
       >
         <Container>
-          <Grid container justifyContent="space-around">
-            <Grid xs={12} md={3}>
-              <p>@ Delia Constantino 2023</p>
-            </Grid>
-            <Grid xs={12} md={3}>
-              <p>Github Code</p>
-            </Grid>
-            <Grid xs={12} md={3}>
-              <p>Quotes Sourced from:</p>
-            </Grid>
-          </Grid>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            sx={{
+              alignItems: {
+                md: "center",
+              },
+              color: "#0a2540",
+              flexDirection: {
+                xs: "column-reverse",
+                md: "row",
+              },
+            }}
+          >
+            <Box>
+              <Typography variant="body1">© Delia Constantino 2023</Typography>
+            </Box>
+            <Box mb={{ xs: 2, md: 0 }}>
+              <Typography variant="body1">
+                <a
+                  href="https://github.com/deliaconstantino/motivation-journal"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Box
+                    component="span"
+                    sx={{
+                      position: "relative",
+                      top: 5,
+                    }}
+                  >
+                    <Image
+                      src="/images/github-mark.svg"
+                      height={20}
+                      width={20}
+                      alt="GitHub Icon"
+                    />
+                  </Box>
+                  <Box component="span" ml={1}>
+                    Source Code
+                  </Box>
+                </a>
+              </Typography>
+              <Typography>
+                <a
+                  href="https://github.com/lukePeavey/quotable"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Inspirational Quote API
+                </a>
+              </Typography>
+            </Box>
+          </Box>
         </Container>
       </Box>
     </footer>

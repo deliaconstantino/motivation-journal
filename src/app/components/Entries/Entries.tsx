@@ -1,28 +1,76 @@
+import Box from "@mui/material/Box";
+import { useEffect } from "react";
 import useSWR from "swr";
 import { Entry } from "../Entry";
-import { fetcher } from "../utils/fetcher";
+import { LoadingSpinner } from "../LoadingSpinner";
+import { SnackbarMessage } from "../Notes";
 
-import { styled } from "@mui/material/styles";
+export type JSONEntry = {
+  body: string;
+  created_at: Date;
+  id: string;
+  title: string;
+  updated_at: Date;
+  user_id: string;
+  deleteNoteFromState: (id: string) => void;
+};
 
-const Demo = styled("div")(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-}));
+export const fetcher = ([url, token]: string[]) =>
+  fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    return res.json();
+  });
 
-export const Entries = () => {
-  //TODO: add types
-  const { data, error, isLoading } = useSWR(
-    "http://localhost:3001/api/v1/entries",
+export type EntriesProps = {
+  notes: JSONEntry[] | null;
+  setNotes: (notes: JSONEntry[] | null) => void;
+  handleOpenEditEntryForm: (id: string) => void;
+  deleteNoteFromState: (id: string) => void;
+  updateSnackbar: (message: SnackbarMessage) => void;
+};
+
+export const Entries = ({
+  notes,
+  setNotes,
+  handleOpenEditEntryForm,
+  deleteNoteFromState,
+  updateSnackbar,
+}: EntriesProps) => {
+  const token = localStorage.getItem("token");
+
+  const { data, error, isLoading } = useSWR<JSONEntry[], Error>(
+    ["http://localhost:3001/api/v1/entries", token],
     fetcher
   );
 
+  useEffect(() => {
+    if (data) setNotes(data);
+  }, [data, setNotes]);
+
   if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <LoadingSpinner color="#d15842" />;
 
   return (
-    <>
-      {data?.map(({ id, body, updated_at }) => {
-        return <Entry key={id} body={body} updatedAt={updated_at} />;
+    <Box mb={12}>
+      {notes?.map(({ id, body, updated_at, created_at, title }) => {
+        return (
+          <Entry
+            key={id}
+            id={id}
+            title={title}
+            body={body}
+            updatedAt={updated_at}
+            createdAt={created_at}
+            handleOpenEditEntryForm={handleOpenEditEntryForm}
+            deleteNoteFromState={deleteNoteFromState}
+            updateSnackbar={updateSnackbar}
+          />
+        );
       })}
-    </>
+    </Box>
   );
 };

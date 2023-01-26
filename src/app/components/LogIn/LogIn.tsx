@@ -9,6 +9,8 @@ export const LogIn = ({
 }: AuthFormsProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const handleFormChange = () => {
     setShowLoginForm(false);
@@ -46,7 +48,9 @@ export const LogIn = ({
       })
       .then((response) => {
         if (response.errors) {
-          alert(response.errors.join(". "));
+          setPasswordError(true);
+          setEmailError(true);
+          console.log(response.errors);
         } else {
           localStorage.setItem("token", response.jwt);
           setEmail("");
@@ -55,8 +59,9 @@ export const LogIn = ({
         }
       })
       .catch((error) => {
+        setPasswordError(true);
+        setEmailError(true);
         console.log(error);
-        alert("Email or password are incorrect");
       });
   };
 
@@ -70,6 +75,8 @@ export const LogIn = ({
       handlePasswordChange={handlePasswordChange}
       handleFormChange={handleFormChange}
       message="Don't have an account? Sign Up"
+      emailError={emailError}
+      passwordError={passwordError}
     />
   );
 };

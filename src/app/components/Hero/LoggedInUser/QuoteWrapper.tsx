@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export type QuoteWrapperProps = {
   content: string;
@@ -6,11 +6,23 @@ export type QuoteWrapperProps = {
 };
 
 export const QuoteWrapper = ({ content, author }: QuoteWrapperProps) => {
-  // Todo: add fade-in
   return (
-    <Box mx="auto" textAlign="center" color="white">
-      <h2>{content}</h2>
-      <p> -- {author}</p>
-    </Box>
+    <>
+      <Typography variant="h5" fontWeight="bold">
+        {content}
+      </Typography>
+      <Typography
+        variant="body2"
+        fontStyle="italic"
+        sx={{
+          textAlign: "right",
+          mr: 12,
+          mb: { lg: 10 },
+        }}
+      >
+        {" "}
+        — {author}
+      </Typography>
+    </>
   );
 };

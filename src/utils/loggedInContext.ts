@@ -6,6 +6,7 @@ export type SetIsLoggedInFunctionType = {
 
 export interface LoggedInContextType extends SetIsLoggedInFunctionType {
   isLoggedIn: boolean;
+  userCheckComplete: boolean;
 }
 
 export const LoggedInContext = createContext<LoggedInContextType | null>(null);

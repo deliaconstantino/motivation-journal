@@ -1,4 +1,5 @@
 import { SetIsLoggedInFunctionType } from "@/utils/loggedInContext";
+import Box from "@mui/material/Box";
 import { useState } from "react";
 import { LogIn } from "../../LogIn";
 import { SignUp } from "../../SignUp";
@@ -13,7 +14,7 @@ export const AuthForm = ({ setIsLoggedIn }: SetIsLoggedInFunctionType) => {
   const [showSignupForm, setShowSignupForm] = useState(false);
 
   return (
-    <>
+    <Box sx={{ mb: { xs: 6, md: 0 } }}>
       {showSignupForm && (
         <SignUp
           setShowLoginForm={setShowLoginForm}
@@ -28,6 +29,6 @@ export const AuthForm = ({ setIsLoggedIn }: SetIsLoggedInFunctionType) => {
           setIsLoggedIn={setIsLoggedIn}
         />
       )}
-    </>
+    </Box>
   );
 };

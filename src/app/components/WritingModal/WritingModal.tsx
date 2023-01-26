@@ -1,13 +1,16 @@
 import AddIcon from "@mui/icons-material/Add";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
+import IconButton from "@mui/material/IconButton";
 import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
 import Modal from "@mui/material/Modal";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { JSONEntry } from "../Entries/Entries";
+import { SnackbarMessage } from "../Notes";
+import { EditEntryForm } from "./EditEntryForm";
+import { NewEntryForm } from "./NewEntryForm";
 
 const style = {
   position: "absolute" as "absolute",
@@ -15,28 +18,59 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "80vw",
-  height: "80vh",
+  minHeight: 500,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: { xs: 2, md: 4 },
 };
 
-export const WritingModal = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export type WritingModalProps = {
+  isNew: boolean;
+  open: boolean;
+  handleOpen: () => void;
+  handleClose: () => void;
+  currentNote: {
+    title: string;
+    body: string;
+    id: string;
+  };
+  updateNotes: (updatedNote: JSONEntry) => void;
+  addNote: (newNote: JSONEntry) => void;
+  handleIsNew: () => void;
+  updateSnackbar: (message: SnackbarMessage) => void;
+};
 
+export const WritingModal = ({
+  currentNote,
+  isNew,
+  open,
+  handleOpen,
+  handleClose,
+  updateNotes,
+  addNote,
+  handleIsNew,
+  updateSnackbar,
+}: WritingModalProps) => {
   return (
-    <div>
-      <ListItem divider>
-        <ListItemAvatar>
-          <Avatar>
-            <Button onClick={handleOpen}>
-              <AddIcon />
-            </Button>
-          </Avatar>
-        </ListItemAvatar>
+    <Box>
+      <ListItem divider sx={{ pl: { xs: 0, md: 2 } }}>
+        <Tooltip title="New note">
+          <IconButton
+            aria-label="create"
+            onClick={handleOpen}
+            sx={{ mb: 2, mr: { xs: 1, md: 3 } }}
+          >
+            <AddIcon />
+          </IconButton>
+        </Tooltip>
+        <ListItemText
+          primary={
+            <Typography variant="body1" color="text.primary" fontStyle="italic">
+              write a new note...
+            </Typography>
+          }
+        />
       </ListItem>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -47,15 +81,25 @@ export const WritingModal = () => {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            {isNew && (
+              <NewEntryForm
+                handleModalClose={handleClose}
+                addNote={addNote}
+                updateSnackbar={updateSnackbar}
+              />
+            )}
+            {!isNew && (
+              <EditEntryForm
+                handleModalClose={handleClose}
+                currentNote={currentNote}
+                updateNotes={updateNotes}
+                handleIsNew={handleIsNew}
+                updateSnackbar={updateSnackbar}
+              />
+            )}
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </Box>
   );
 };

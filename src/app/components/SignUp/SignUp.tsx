@@ -9,6 +9,8 @@ export const SignUp = ({
 }: AuthFormsProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const handleFormChange = () => {
     setShowLoginForm(true);
@@ -41,7 +43,14 @@ export const SignUp = ({
       .then((resp) => resp.json())
       .then((response) => {
         if (response.errors) {
-          alert(response.errors.join(". "));
+          response.errors.forEach((error: string) => {
+            error.includes("Password")
+              ? setPasswordError(true)
+              : setPasswordError(false);
+            error.includes("Email")
+              ? setEmailError(true)
+              : setEmailError(false);
+          });
         } else {
           localStorage.setItem("token", response.jwt);
           setEmail("");
@@ -61,6 +70,8 @@ export const SignUp = ({
       handlePasswordChange={handlePasswordChange}
       handleFormChange={handleFormChange}
       message="Already have an account? Log In"
+      emailError={emailError}
+      passwordError={passwordError}
     />
   );
 };

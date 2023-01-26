@@ -13,6 +13,7 @@ export type EntryProps = {
   title: string;
   id: string;
   handleOpenEditEntryForm: (id: string) => void;
+  deleteNoteFromState:  (id: string) => void;
 };
 
 export function Entry({
@@ -22,6 +23,8 @@ export function Entry({
   title,
   id,
   handleOpenEditEntryForm,
+  deleteNoteFromState,
+  setShowSnackbar
 }: EntryProps) {
   const updatedAtDate = new Date(updatedAt).toDateString();
 
@@ -29,12 +32,38 @@ export function Entry({
     handleOpenEditEntryForm(id);
   };
 
+  const handleDeleteEntry = async () => {
+    console.log("hit delete. ID:", id)
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await fetch(
+          `http://localhost:3001/api/v1/entries/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          console.log("response", response)
+          deleteNoteFromState(id);
+          console.log("deleted!")
+          setShowSnackbar(true)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+  }
+
   return (
     <ListItem
       divider
       secondaryAction={
         <Tooltip title="Delete note">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={handleDeleteEntry}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>

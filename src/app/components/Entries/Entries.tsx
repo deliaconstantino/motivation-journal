@@ -10,6 +10,7 @@ export type JSONEntry = {
   title: string;
   updated_at: Date;
   user_id: string;
+  deleteNoteFromState: (id: string) => void;
 };
 
 export const fetcher = ([url, token]: string[]) =>
@@ -26,12 +27,15 @@ export type EntriesProps = {
   notes: JSONEntry[] | null;
   setNotes: (notes: JSONEntry[] | null) => void;
   handleOpenEditEntryForm: (id: string) => void;
+  deleteNoteFromState: (id: string) => void;
 };
 
 export const Entries = ({
   notes,
   setNotes,
   handleOpenEditEntryForm,
+  deleteNoteFromState,
+  setShowSnackbar
 }: EntriesProps) => {
   const token = localStorage.getItem("token");
 
@@ -59,6 +63,8 @@ export const Entries = ({
             updatedAt={updated_at}
             createdAt={created_at}
             handleOpenEditEntryForm={handleOpenEditEntryForm}
+            deleteNoteFromState={deleteNoteFromState}
+            setShowSnackbar={setShowSnackbar}
           />
         );
       })}

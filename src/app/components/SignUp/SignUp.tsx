@@ -39,7 +39,7 @@ export const SignUp = ({
       }),
     };
 
-    fetch("http://localhost:3001/api/v1/users", configObj)
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}api/v1/users`, configObj)
       .then((resp) => resp.json())
       .then((response) => {
         if (response.errors) {

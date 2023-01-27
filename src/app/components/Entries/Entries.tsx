@@ -43,7 +43,7 @@ export const Entries = ({
   const token = localStorage.getItem("token");
 
   const { data, error, isLoading } = useSWR<JSONEntry[], Error>(
-    ["http://localhost:3001/api/v1/entries", token],
+    [`${process.env.NEXT_PUBLIC_SERVER_URL}api/v1/entries`, token],
     fetcher
   );
 

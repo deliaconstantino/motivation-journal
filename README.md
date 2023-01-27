@@ -21,14 +21,14 @@ https://user-images.githubusercontent.com/70108137/215191359-9ae239d6-0ef6-49fb-
 
 To run locally, fork and clone this repo.
 
-Ensure that your back end is fully set up:
-The back end of the app can be found at [motivation-journal-backend](https://github.com/deliaconstantino/motivation-journal-backend) with instructions for database creation, seed data, and running the Rails server.
-
 ### Available Scripts
 
 - `npm install` - installs dependencies.
 
 - `npm run dev` - Runs the app in development mode at http://localhost:3000.
+
+### Server
+The Rails API server is hosted via [render](https://render.com/). Check out the source code at [motivation-journal-backend](https://github.com/deliaconstantino/motivation-journal-backend), with information for running locally.
 
 ## License
 

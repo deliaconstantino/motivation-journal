@@ -1,12 +1,11 @@
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import useSWR from "swr";
-import { fetcher } from "../../utils/fetcher";
 import { QuoteWrapper } from "./QuoteWrapper";
 
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export const Quote = () => {
-  //TODO:
-  // add swr types
   const { data, error, isLoading } = useSWR(
     "https://api.quotable.io/random?tags=inspirational",
     fetcher

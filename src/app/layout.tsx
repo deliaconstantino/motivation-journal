@@ -19,12 +19,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:3001/api/v1/profile", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}api/v1/profile`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
           setIsLoggedIn(true);

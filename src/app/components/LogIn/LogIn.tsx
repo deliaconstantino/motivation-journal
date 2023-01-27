@@ -38,7 +38,7 @@ export const LogIn = ({
       }),
     };
 
-    fetch("http://localhost:3001/api/v1/login", configObj)
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}api/v1/login`, configObj)
       .then((resp) => {
         if (!resp.ok) {
           const errorMessage = `${resp?.status}: ${resp?.statusText}`;

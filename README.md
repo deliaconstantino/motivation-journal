@@ -1,39 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Motivation Journal
 
-## Getting Started
+Motivation Journal is a journaling app that allows users to create, read, write, and delete (CRUD) journal entries. It leverages a Next.js client with a Ruby on Rails API server and fetches inspirational quotes from a third party API, [Quotable](https://github.com/lukePeavey/quotable).
 
-First, run the development server:
+Check out the live demo at https://motivation-journal.vercel.app/.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+https://user-images.githubusercontent.com/70108137/215191359-9ae239d6-0ef6-49fb-a1f1-6804af2c5bf9.mp4
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Ruby on Rails](https://rubyonrails.org/)
+- [Material UI](https://mui.com/)
+- [Ruby](https://www.ruby-lang.org/en/)
+- [JSON Web Tokens](https://jwt.io/)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Configuration
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To run locally, fork and clone this repo.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Ensure that your back end is fully set up:
+The back end of the app can be found at [motivation-journal-backend](https://github.com/deliaconstantino/motivation-journal-backend) with instructions for database creation, seed data, and running the Rails server.
 
-## Learn More
+### Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+- `npm install` - installs dependencies.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `npm run dev` - Runs the app in development mode at http://localhost:3000.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
+The app is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# motivation-journal
+Bug reports and pull requests are welcome on GitHub at https://github.com/deliaconstantino/motivation-journal. 

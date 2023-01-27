@@ -7,5 +7,4 @@ export { LogIn } from "./LogIn";
 export { NavBar } from "./NavBar";
 export { Notes } from "./Notes";
 export { SignUp } from "./SignUp";
-export { fetcher } from "./utils/fetcher";
 export { WritingModal } from "./WritingModal";

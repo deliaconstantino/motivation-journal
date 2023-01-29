@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import { FormSubmissionProgress } from "../FormSubmissionProgress";
 
 export type EntryFormBaseProps = {
   title: string;
@@ -10,6 +11,7 @@ export type EntryFormBaseProps = {
   handleTitleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleContentChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  isSubmitting: boolean;
 };
 export const EntryFormBase = ({
   title,
@@ -18,6 +20,7 @@ export const EntryFormBase = ({
   handleContentChange,
   handleSubmit,
   error,
+  isSubmitting,
 }: EntryFormBaseProps) => {
   return (
     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -56,7 +59,7 @@ export const EntryFormBase = ({
         color="secondary"
         sx={{ mt: 3, mb: 2, px: 4 }}
       >
-        Save
+        {isSubmitting ? <FormSubmissionProgress /> : "Save"}
       </Button>
     </Box>
   );

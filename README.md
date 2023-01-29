@@ -27,8 +27,15 @@ To run locally, fork and clone this repo.
 
 - `npm run dev` - Runs the app in development mode at http://localhost:3000.
 
-### Server
-The Rails API server is hosted via [render](https://render.com/). Check out the source code at [motivation-journal-backend](https://github.com/deliaconstantino/motivation-journal-backend), with information for running locally.
+### Set Up the Server Locally:
+Fork and clone the back end ([motivation-journal-backend](https://github.com/deliaconstantino/motivation-journal-backend)) and run it locally with `rails server`.
+
+Add a `.env.local` file to this repo with the local server's url:
+```
+// .env.local
+
+NEXT_PUBLIC_SERVER_URL=your-local-server-url, for example: http://localhost:3001/
+```
 
 ## License
 

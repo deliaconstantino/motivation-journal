@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <title>Motivation Journal</title>
         <meta name="description" content="A note-taking app" />
-        <link rel="icon" href="/journal-icon.ico" />
+        <link rel="icon" href="/images/journal-icon.ico" />
       </head>
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />

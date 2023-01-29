@@ -25,6 +25,7 @@ export const EditEntryForm = ({
   const [title, setTitle] = useState(currentNote.title);
   const [content, setContent] = useState(currentNote.body);
   const [error, setError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -36,6 +37,8 @@ export const EditEntryForm = ({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsSubmitting(true);
+
     const data = {
       entry: {
         title: title,
@@ -73,6 +76,8 @@ export const EditEntryForm = ({
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -84,6 +89,7 @@ export const EditEntryForm = ({
       handleContentChange={handleContentChange}
       handleSubmit={handleSubmit}
       error={error}
+      isSubmitting={isSubmitting}
     />
   );
 };

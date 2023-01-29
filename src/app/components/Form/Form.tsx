@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { ChangeEvent, FormEvent } from "react";
+import { FormSubmissionProgress } from "../FormSubmissionProgress";
 
 type FormProps = {
   formType: string;
@@ -18,6 +19,7 @@ type FormProps = {
   message: string;
   emailError: boolean;
   passwordError: boolean;
+  isSubmitting: boolean;
 };
 
 export const Form = ({
@@ -31,6 +33,7 @@ export const Form = ({
   handleSubmit,
   emailError,
   passwordError,
+  isSubmitting,
 }: FormProps) => {
   return (
     <Box
@@ -89,7 +92,7 @@ export const Form = ({
           color="secondary"
           sx={{ mt: 3, mb: 2 }}
         >
-          {formType}
+          {isSubmitting ? <FormSubmissionProgress /> : formType}
         </Button>
         <Grid
           container

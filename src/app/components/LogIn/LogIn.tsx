@@ -11,6 +11,7 @@ export const LogIn = ({
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFormChange = () => {
     setShowLoginForm(false);
@@ -26,6 +27,8 @@ export const LogIn = ({
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setIsSubmitting(true);
 
     const configObj = {
       method: "POST",
@@ -62,7 +65,8 @@ export const LogIn = ({
         setPasswordError(true);
         setEmailError(true);
         console.log(error);
-      });
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -77,6 +81,7 @@ export const LogIn = ({
       message="Don't have an account? Sign Up"
       emailError={emailError}
       passwordError={passwordError}
+      isSubmitting={isSubmitting}
     />
   );
 };

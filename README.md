@@ -6,7 +6,7 @@ Check out the live demo at https://motivation-journal.vercel.app/.
 
 ## Demo
 
-https://user-images.githubusercontent.com/70108137/215191359-9ae239d6-0ef6-49fb-a1f1-6804af2c5bf9.mp4
+https://user-images.githubusercontent.com/70108137/215829553-60624d48-38fa-475c-b5b3-b857fb1bc1e4.mp4
 
 ## Technologies
 - [Next.js](https://nextjs.org/)
